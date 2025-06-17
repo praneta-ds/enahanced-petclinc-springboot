@@ -43,6 +43,7 @@ pipeline {
             }
             steps{
                 withSonarQubeEnv('sonarserver'){
+                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')])
                      sh '''
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
