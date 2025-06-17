@@ -31,17 +31,18 @@ pipeline {
         //         sh 'mvn test'
         //     }
         // }
+    }
         stage('Trivy Scan'){
             steps{
                echo 'Running Trivy scan...'
                sh 'trivy fs --output trivy-report.txt --severity HIGH,CRITICAL .'  
             }
         }
-        stage('Sonarqube Analysis'){
-            environment{
+        stage('Sonarqube Analysis') {
+            environment {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
-            steps{
+            steps {
                     //withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
                         withSonarQubeEnv('sonarserver'){
                         /* groovylint-disable-next-line GStringExpressionWithinString */
@@ -50,8 +51,7 @@ pipeline {
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
                         -Dsonar.java.binaries=. \
-                        -Dsonar.exclusions=**/trivy-report.txt \
-                       
+                        -Dsonar.exclusions=**/trivy-report.txt
                     '''
                     }
                 //}
@@ -72,4 +72,4 @@ pipeline {
     //     }
     // }
     }
-}
+
