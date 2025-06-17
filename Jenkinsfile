@@ -51,7 +51,7 @@ pipeline {
                         -Dsonar.projectKey=PetClinic \
                         -Dsonar.java.binaries=. \
                         -Dsonar.exclusions=**/trivy-report.txt \
-                        -Dsonar.login=${SONAR_TOKEN}
+                       
                     '''
                     }
                 //}
