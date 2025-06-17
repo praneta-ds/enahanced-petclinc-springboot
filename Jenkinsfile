@@ -105,7 +105,7 @@ pipeline {
                         echo "Logging into Azure kubernetes Service..."
                             sh '''
                                 az login --service-principal -u "$AZURE_USERNAME" -p "$AZURE_PASSWORD" --tenant "$TENANT_ID"
-                                az aksget-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
+                                az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
                         '''
                     }
                 }
@@ -118,7 +118,7 @@ pipeline {
                     sh '''
                         kubectl apply -f k8s/petclinic.yml
                     '''
-                }
+                }ß
             }
         }
     }
