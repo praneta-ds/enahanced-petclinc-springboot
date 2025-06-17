@@ -3,9 +3,9 @@ pipeline {
     tools {
         maven 'maven'
     }
-    // environment {
-    //     IMAGE_NAME = 'app-image'
-    //     BUILD_TAG = "latest"
+    environment {
+        IMAGE_NAME = 'petclinic'
+        BUILD_TAG = "latest"
     // //TENANT_ID = '9288e819-a217-4590-8b41-5088c8ee0457'
     // //ACR_NAME = 'dockerregnodejss'
     // //ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
@@ -57,20 +57,20 @@ pipeline {
                 }
             }
         }
-        // stage('Package'){
-        //     steps{
-        //         sh 'mvn package'
-        //     }
-        // }
-        // stage('Build Docker Image'){
-        //     steps{
-        //         echo 'Building Docker image...'
-        //         script{
-        //             docker.build("${IMAGE_NAME}:${BUILD_TAG}")
-        //         }
+        stage('Package'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+         stage('Build Docker Image'){
+           steps{
+            echo 'Building Docker image...'
+             script{
+               docker.build("${IMAGE_NAME}:${BUILD_TAG}")
+            }
 
-    //     }
-    // }
+        }
+    }
     }
 }
 
