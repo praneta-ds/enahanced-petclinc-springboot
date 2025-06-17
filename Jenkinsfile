@@ -42,7 +42,7 @@ pipeline {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
             steps{
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
+                    //withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
                         withSonarQubeEnv('sonarserver'){
                         /* groovylint-disable-next-line GStringExpressionWithinString */
                         sh '''
@@ -54,7 +54,7 @@ pipeline {
                         -Dsonar.login=${SONAR_TOKEN}
                     '''
                     }
-                }
+                //}
             }
         }
         // stage('Package'){
