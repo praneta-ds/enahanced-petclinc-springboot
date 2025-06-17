@@ -31,7 +31,7 @@ pipeline {
         //         sh 'mvn test'
         //     }
         // }
-    }
+    
         stage('Trivy Scan'){
             steps{
                echo 'Running Trivy scan...'
@@ -72,4 +72,5 @@ pipeline {
     //     }
     // }
     }
+}
 
