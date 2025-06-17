@@ -62,9 +62,7 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        
-         stage('Build Docker Image'){
-            stage('Test Docker') {
+         stage('Test Docker') {
                 steps {
                     script {
                         sh 'docker --version'
@@ -72,7 +70,9 @@ pipeline {
                         echo "Docker image built: ${img.id}"
                     }
                 }
-            }   
+            } 
+         stage('Build Docker Image'){
+             
 
            steps{
             echo 'Building Docker image...'
