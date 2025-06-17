@@ -55,6 +55,7 @@ pipeline {
                         -Dsonar.exclusions=**/trivy-report.txt
                     '''
                     }
+                }
                 //}
             }
         }
