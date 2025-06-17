@@ -43,13 +43,14 @@ pipeline {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
             steps {
-                    //withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
+                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
                         withSonarQubeEnv('sonarserver'){
                         /* groovylint-disable-next-line GStringExpressionWithinString */
                         sh '''
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
+                        -Dsonar.login=$SONAR_TOKEN \
                         -Dsonar.java.binaries=. \
                         -Dsonar.exclusions=**/trivy-report.txt
                     '''
