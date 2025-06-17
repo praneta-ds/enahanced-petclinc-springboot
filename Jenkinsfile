@@ -49,7 +49,7 @@ pipeline {
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
-                        -Dsonar.login=$SONAR_TOKEN \
+                        -Dsonar.login=${SONAR_TOKEN} \
                         -Dsonar.java.binaries=. \
                         -Dsonar.exclusions=**/trivy-report.txt
                     """
