@@ -14,7 +14,7 @@ pipeline {
     //CLUSTER_NAME = 'demo-aks'
     }
     stages {
-        stage('Checkout From Git') { 
+        stage('Checkout From Git') {
             steps {
                 git branch: 'prod', url: 'https://github.com/praneta-ds/enahanced-petclinc-springboot.git'
             }
@@ -32,8 +32,8 @@ pipeline {
         //     }
         // }
     
-        stage('Trivy Scan'){
-            steps{
+        stage('Trivy Scan') {
+            steps {
                echo 'Running Trivy scan...'
                sh 'trivy fs --output trivy-report.txt --severity HIGH,CRITICAL .'  
             }
