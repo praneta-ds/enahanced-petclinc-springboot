@@ -42,8 +42,8 @@ pipeline {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
             steps{
-                withSonarQubeEnv('sonarserver'){
                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
+                        withSonarQubeEnv('sonarserver'){
                         /* groovylint-disable-next-line GStringExpressionWithinString */
                         sh '''
                         ${SCANNER_HOME}/bin/sonar-scanner \
