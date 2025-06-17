@@ -72,8 +72,8 @@ pipeline {
                docker.build("${IMAGE_NAME}:${BUILD_TAG}")
             }
 
+            }
         }
-    }
         stage('ACR login'){
             steps{
                 script {
@@ -98,6 +98,30 @@ pipeline {
                 }
             }
         }
+        stage('Login kubernetes'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'azure-credentials', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {
+                    script{
+                        echo "Logging into Azure kubernetes Service..."
+                            sh '''
+                                az login --service-principal -u "$AZURE_USERNAME" -p "$AZURE_PASSWORD" --tenant "$TENANT_ID"
+                                az aksget-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
+                        '''
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes'){
+            steps {
+                script {
+                    echo 'Deploying to Kubernetes...'
+                    sh '''
+                        kubectl apply -f k8s/petclinic.yml
+                    '''
+                }
+            }
+        }
     }
 }
+
 
