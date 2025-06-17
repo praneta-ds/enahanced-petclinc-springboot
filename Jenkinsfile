@@ -116,7 +116,8 @@ pipeline {
                 script {
                     echo 'Deploying to Kubernetes...'
                     sh '''
-                        kubectl apply -f k8s/petclinic.yml
+                        kubectl apply -f sprinboot-deployment.yaml
+
                     '''
                 }
             }
