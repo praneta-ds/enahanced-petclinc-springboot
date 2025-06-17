@@ -42,11 +42,10 @@ pipeline {
             environment {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
-            steps {
-                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
-                        withSonarQubeEnv('sonarserver'){
-                        /* groovylint-disable-next-line GStringExpressionWithinString */
-                        sh '''
+           steps {
+            withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                withSonarQubeEnv('sonarserver') {
+                    sh '''
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
@@ -56,7 +55,6 @@ pipeline {
                     '''
                     }
                 }
-                //}
             }
         }
         // stage('Package'){
