@@ -118,7 +118,7 @@ pipeline {
                     sh '''
                         kubectl apply -f k8s/petclinic.yml
                     '''
-                }ß
+                }
             }
         }
     }
