@@ -45,14 +45,14 @@ pipeline {
            steps {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                 withSonarQubeEnv('sonarserver') {
-                    sh '''
+                    sh """
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
                         -Dsonar.login=$SONAR_TOKEN \
                         -Dsonar.java.binaries=. \
                         -Dsonar.exclusions=**/trivy-report.txt
-                    '''
+                    """
                     }
                 }
             }
