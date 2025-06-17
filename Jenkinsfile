@@ -44,9 +44,7 @@ pipeline {
             steps{
                 withSonarQubeEnv('soanrserver'){
                      sh '''
-                        $/opt/sonar-scanner/bin/sonar-scanner \
-        
-                      
+                        ${SCANNER_HOME}/opt/sonar-scanner/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
                         -Dsonar.projectKey=PetClinic \
                         -Dsonar.java.binaries=. \
