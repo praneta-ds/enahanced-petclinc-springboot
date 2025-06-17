@@ -6,12 +6,12 @@ pipeline {
     environment {
         IMAGE_NAME = 'petclinic'
         BUILD_TAG = "latest"
-    // //TENANT_ID = '9288e819-a217-4590-8b41-5088c8ee0457'
-    // //ACR_NAME = 'dockerregnodejss'
-    // //ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
-    // //FULL_IMAGE_NAME = "${ACR_NAME}.azurecr.io/${IMAGE_NAME}:${BUILD_TAG}"
-    // // RESOURCE_GROUP = 'demo-rg'
-    // //CLUSTER_NAME = 'demo-aks'
+        TENANT_ID = '7e8c858a-0db6-4a84-bf38-fa771c60387e'
+        ACR_NAME = 'clinicjenkins'
+        ACR_LOGIN_SERVER = "${ACR_NAME}.azurecr.io"
+        FULL_IMAGE_NAME = "${ACR_NAME}.azurecr.io/${IMAGE_NAME}:${BUILD_TAG}"
+        RESOURCE_GROUP = 'Jenkins'
+        CLUSTER_NAME = 'demo-eks'
     }
     stages {
         stage('Checkout From Git') {
@@ -74,6 +74,30 @@ pipeline {
 
         }
     }
+        stage('ACR login'){
+            steps{
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'azure-credentials', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {
+                        echo "Logging into Azure Container Registry..."
+                        sh '''
+                            az login --service-principal -u "$AZURE_USERNAME" -p "$AZURE_PASSWORD" --tenant "$TENANT_ID"
+                            az acr login --name clinicjenkins
+                        '''
+                    }
+                }   
+            }  
+        }
+        stage('Push Docker Image to ACR') {
+            steps {
+                script {
+                    echo 'Pushing Docker image to Azure Container Registry...'
+                    sh '''
+                        docker tag ${IMAGE_NAME}:${BUILD_TAG} ${FULL_IMAGE_NAME}
+                        docker push ${FULL_IMAGE_NAME}
+                    '''
+                }
+            }
+        }
     }
 }
 
