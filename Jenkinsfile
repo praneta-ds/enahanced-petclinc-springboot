@@ -42,7 +42,7 @@ pipeline {
                 SCANNER_HOME = tool 'sonar-scanner'
             }
             steps{
-                withSonarQubeEnv('soanrserver'){
+                withSonarQubeEnv('sonarserver'){
                      sh '''
                         ${SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectName=PetClinic-app \
