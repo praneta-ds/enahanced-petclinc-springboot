@@ -62,15 +62,7 @@ pipeline {
                 sh 'mvn package'
             }
         }
-         stage('Test Docker') {
-                steps {
-                    script {
-                        sh 'docker --version'
-                        def img = docker.build('hello-world')
-                        echo "Docker image built: ${img.id}"
-                    }
-                }
-            } 
+         
          stage('Build Docker Image'){
              
 
